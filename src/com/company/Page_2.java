@@ -1,7 +1,10 @@
 package com.company;
 
+import com.mysql.cj.AppendingBatchVisitor;
+
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicComboBoxUI;
 import javax.swing.table.*;
 import java.sql.*;
 import java.lang.*;
@@ -41,95 +44,17 @@ class Page_2 extends Component implements ActionListener {
     String password = "Manavdoshi31";
 
     Page_2() {
-        fr = new JFrame("ORDERS");
-        fr.setFont(new Font("Cambria", Font.PLAIN, 15));
-        fr.setResizable(false);
+        fr = new JFrame("Ordering");
         fr.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-
         c = fr.getContentPane();
         c.setLayout(null);
 
-        c = fr.getContentPane();
-        c.setLayout(null);
-
-
-        bg = new JLabel(new ImageIcon("/Images/BG_1.png"));
-        //fr.add(bg);
+       bg = new JLabel(new ImageIcon("Images/img3.jpg"));
+        bg.setBounds(0,0,890,680);
         c.add(bg);
-        
-
-
-        title = new JLabel("Stock Ordering");
-        title.setFont(new Font("Cambria", Font.PLAIN, 30));
-        title.setSize(350, 50);
-        title.setLocation(325, 63);
-        c.add(title);
-
-        item = new JLabel("Item : ");
-        item.setFont(new Font("Cambria", Font.PLAIN, 19));
-        item.setSize(97, 20);
-        item.setLocation(100, 380);
-        c.add(item);
-
-        date = new JLabel("Date : ");
-        date.setFont(new Font("Cambria", Font.PLAIN, 19));
-        date.setSize(97, 20);
-        date.setLocation(100, 419);
-        c.add(date);
-
-        d = new JComboBox(dates);
-        d.setFont(new Font("Arial", Font.PLAIN, 16));
-        d.setSize(50, 24);
-        d.setLocation(165, 419);
-        c.add(d);
-
-        m = new JComboBox(months);
-        m.setFont(new Font("Arial", Font.PLAIN, 16));
-        m.setSize(80, 24);
-        m.setLocation(225, 419);
-        c.add(m);
-
-        y = new JComboBox(years);
-        y.setFont(new Font("Arial", Font.PLAIN, 16));
-        y.setSize(80, 24);
-        y.setLocation(315, 419);
-        c.add(y);
-
-        quantity = new JLabel("Quantity : ");
-        quantity.setFont(new Font("Cambria", Font.PLAIN, 19));
-        quantity.setSize(97, 20);
-        quantity.setLocation(100, 458);
-        c.add(quantity);
-
-        qtf = new JTextField();
-        qtf.setFont(new Font("Arial", Font.PLAIN, 16));
-        qtf.setSize(193, 23);
-        qtf.setLocation(200, 458);
-        c.add(qtf);
-
-        add = new JButton("Add");
-        add.setFont(new Font("Cambria", Font.PLAIN, 17));
-        add.setSize(90, 21);
-        add.setLocation(110, 505);
-        add.addActionListener(this);
-        c.add(add);
-
-        cfo = new JButton("Confirm Order");
-        cfo.setFont(new Font("Cambria", Font.PLAIN, 17));
-        cfo.setSize(160, 21);
-        cfo.setLocation(570, 390);
-        cfo.addActionListener(this);
-        c.add(cfo);
-
-        mess = new JLabel("");
-        mess.setFont(new Font("Cambria", Font.BOLD, 17));
-        mess.setSize(270, 20);
-        mess.setLocation(560, 430);
-        c.add(mess);
 
         // menu bar code
-
         JMenuBar mb = new JMenuBar();
         menu1 = new JMenu("Pages");
         menu2 = new JMenu("Help");
@@ -156,8 +81,81 @@ class Page_2 extends Component implements ActionListener {
         mb.add(menu2);
         fr.setJMenuBar(mb);
 
-        // table code
+        title = new JLabel("Stock Ordering");
+        title.setFont(new Font("Cambria", Font.PLAIN, 30));
+        title.setSize(350, 50);
+        title.setLocation(325, 63);
+        bg.add(title);
 
+        item = new JLabel("Item : ");
+        item.setFont(new Font("Cambria", Font.PLAIN, 19 ));
+        item.setSize(97, 20);
+        item.setLocation(100, 380);
+        item.setBackground(Color.blue);
+        bg.add(item);
+
+        date = new JLabel("Date : ");
+        date.setFont(new Font("Cambria", Font.PLAIN, 19));
+        date.setSize(97, 20);
+        date.setLocation(100, 419);
+        bg.add(date);
+
+        d = new JComboBox(dates);
+        d.setFont(new Font("Arial", Font.PLAIN, 16));
+        d.setSize(50, 24);
+        d.setLocation(165, 419);
+        bg.add(d);
+
+        m = new JComboBox(months);
+        m.setFont(new Font("Arial", Font.PLAIN, 16));
+        m.setSize(80, 24);
+        m.setLocation(225, 419);
+        bg.add(m);
+
+        y = new JComboBox(years);
+        y.setFont(new Font("Arial", Font.PLAIN, 16));
+        y.setSize(80, 24);
+        y.setLocation(315, 419);
+        bg.add(y);
+
+        quantity = new JLabel("Quantity : ");
+        quantity.setFont(new Font("Cambria", Font.PLAIN, 19));
+        quantity.setSize(97, 20);
+        quantity.setLocation(100, 458);
+        bg.add(quantity);
+
+        qtf = new JTextField();
+        qtf.setFont(new Font("Arial", Font.PLAIN, 16));
+        qtf.setSize(193, 23);
+        qtf.setLocation(200, 458);
+        bg.add(qtf);
+
+        add = new JButton("Add");
+        add.setFont(new Font("Cambria", Font.PLAIN, 17));
+        add.setSize(90, 21);
+        add.setLocation(110, 505);
+        add.addActionListener(this);
+        bg.add(add);
+
+        cfo = new JButton("Confirm Order");
+        cfo.setFont(new Font("Cambria", Font.PLAIN, 17));
+        cfo.setSize(160, 21);
+        cfo.setLocation(570, 390);
+        cfo.addActionListener(this);
+        bg.add(cfo);
+
+        mess = new JLabel("");
+        mess.setFont(new Font("Cambria", Font.BOLD, 17));
+        mess.setSize(270, 20);
+        mess.setLocation(560, 430);
+        bg.add(mess);
+
+        fr.setVisible(true);
+        fr.setSize(890, 680);
+        fr.setLayout(null);
+        fr.setResizable(false);
+
+        // table code
         model = new DefaultTableModel();
         model.setColumnIdentifiers(column);
 
@@ -166,20 +164,17 @@ class Page_2 extends Component implements ActionListener {
         j.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         j.setFillsViewportHeight(true);
 
-
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         j.setDefaultRenderer(String.class, centerRenderer);
-
 
         JScrollPane sp = new JScrollPane(j);
         sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        fr.add(sp);
+        bg.add(sp);
         sp.setBounds(90, 130, 680, 230);
 
-        // extracting the product type from the database on selection of item on GUI
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -200,6 +195,7 @@ class Page_2 extends Component implements ActionListener {
             box1.setBounds(165, 380, 228, 25);
             box1.setFont(new Font("Cambria", Font.PLAIN, 17));
             c.add(box1);
+            bg.add(box1);
 
             statement1.close();
             resultSet1.close();
@@ -207,7 +203,9 @@ class Page_2 extends Component implements ActionListener {
             System.out.println(ea);
         }
 
+        box1.setOpaque(true);
         fr.setVisible(true);
+        fr.setBackground(Color.lightGray);
         fr.setSize(890, 680);
         fr.setLayout(null);
     }
@@ -223,8 +221,8 @@ class Page_2 extends Component implements ActionListener {
                 int optionType = JOptionPane.OK_CANCEL_OPTION;
                 int result = JOptionPane.showConfirmDialog(null, text, title, optionType);
                 if (result == JOptionPane.OK_OPTION) ;
-            } else {
-
+            }
+            else {
                 finDis = (String) box1.getSelectedItem(); //copying the selected item
                 System.out.println(finDis);
 
@@ -284,7 +282,6 @@ class Page_2 extends Component implements ActionListener {
                 qtf.setText(def);
             }
         }
-
 
         if (e.getSource() == cfo) {
             try {
@@ -348,15 +345,23 @@ class Page_2 extends Component implements ActionListener {
         private JFrame fr;
         Container c;
         JTextField txt1, txt2, txt3;
-        JLabel title, MostSold, total, ls;
+        JLabel title, MostSold, total, ls,bg3;
         JMenu mm1, mm2;
         JMenuItem h1, h2, h3, k1, k2;
-        JButton e;
+        JButton e,show;
         JTable jt;
+        
         int[] profit = new int[5];
+        int sum=0;
+
+        int[] cp = new int[5]; // Cost Price
+        int[] sp = new int[5]; // Selling Price
+        int[] qs=new int[5]; //Quantity sold
+        int[] qo=new int[5]; //Quantity order
+        int[] ql=new int[5]; //Quantity left
+        ArrayList<String> ar = new ArrayList<String>();
 
         Page_3() {
-
             //setting up frame
             fr = new JFrame("Inventory ");
             fr.setFont(new Font("Cambria", Font.PLAIN, 15));
@@ -370,6 +375,10 @@ class Page_2 extends Component implements ActionListener {
             c = fr.getContentPane();
             c.setLayout(null);
             c.setBackground(Color.lightGray);
+
+            bg3 = new JLabel(new ImageIcon("Images/img3.jpg"));
+            bg3.setBounds(0,0,890,680);
+            c.add(bg3);
 
             //setting menu bar
             JMenuBar mb = new JMenuBar();
@@ -399,17 +408,19 @@ class Page_2 extends Component implements ActionListener {
 
             title = new JLabel("Stock Analysis");
             title.setFont(new Font("Cambria", Font.PLAIN, 30));
-            title.setSize(270, 50);//350
-            title.setLocation(375, 63);
+            title.setSize(250, 50);//350
+            title.setLocation(325, 63);
             c.add(title);
+            bg3.add(title);
 
             //most sold label
             MostSold = new JLabel("Most Sold Product: ");
             MostSold.setFont(new Font("Cambria", Font.PLAIN, 19));
             MostSold.setSize(200, 150);
             MostSold.setLocation(105, 358);
-
             c.add(MostSold);
+            bg3.add(MostSold);
+
             txt1 = new JTextField();
             txt1.setFont(new Font("Arial", Font.PLAIN, 16));
             txt1.setSize(300, 23);
@@ -418,35 +429,33 @@ class Page_2 extends Component implements ActionListener {
             txt1.setEditable(false);
             c.add(txt1);
 
+            show = new JButton("Show Analysis");
+            show.setFont(new Font("Cambria", Font.PLAIN, 17));
+            show.setSize(160, 21);
+            show.setLocation(580, 285);
+            show.addActionListener(this);
+            c.add(show);
+            bg3.add(show);
+
             //exit button
             e = new JButton("Exit");
             e.setFont(new Font("Cambria", Font.PLAIN, 17));
             e.setSize(160, 21);
             e.setLocation(365, 525);
             e.addActionListener(this);
+            bg3.add(e);
             c.add(e);
 
             //profit
-
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver"); //driver class
-
                 Connection connection = DriverManager.getConnection(url, username, password);
                 Statement statement = connection.createStatement();
-                PreparedStatement prs;
-                ResultSet rs;
-
                 String q[] = {" select * from stock_ordered;", "select * from stock_sold;"};
-                int[] cp = new int[5]; // Cost Price
-                int[] sp = new int[5]; // Selling Price
-                int[] qs=new int[5]; //Quantity sold
-                int[] qo=new int[5]; //Quantity order
-                int[] ql=new int[5]; //Quantity left
 
                 //int count=0;
-
                 for (int i = 0; i < q.length; i++) {
-                    rs = statement.executeQuery(q[i]);
+                    ResultSet rs = statement.executeQuery(q[i]);
                     int count = 0;
                     while (rs.next()) {
                         if (i == 0) {
@@ -462,7 +471,6 @@ class Page_2 extends Component implements ActionListener {
                 }
 
                 //loop counting qt left and profit
-                int sum=0;
                 int[] profit = new int[5];
                 for (int k = 0; k < 5; k++) {
                     profit[k] =( sp[k] - cp[k])*(qs[k]);
@@ -476,58 +484,80 @@ class Page_2 extends Component implements ActionListener {
                 total.setSize(250, 150);
                 total.setLocation(105, 268);
                 c.add(total);
+                bg3.add(total);
+
                 txt2 = new JTextField();
                 txt2.setFont(new Font("Arial", Font.PLAIN, 16));
                 txt2.setSize(300, 23);
                 txt2.setLocation(365, 332);
-                txt2.setText("" +sum);
                 txt2.setEditable(false);
                 c.add(txt2);
+                bg3.add(txt2);
 
                 //stock availability
-                ArrayList<String> ar = new ArrayList<String>();
                 String pencil,pen,eraser,notebook,geo_box;
                 //pencil
-                if(ql[0]<=(0.25*qo[0]))
+                if(ql[0]<=(0.25*qo[0]) && ql[0]!=0)
                 {
                     pencil="Stock low ";
                     ar.add("pencil");
                 }
-                else{
+                else if(ql[0]<=0 )
+                {
+                    pencil="Out of stock ";
+                }
+                else {
                     pencil="Stock available";
                 }
+
                 //pen
-                if(ql[1]<=(0.25*qo[1]))
+                if(ql[1]<=(0.25*qo[1]) && ql[1]!=0)
                 {
                     pen="Stock low";
                     ar.add("pen");
+                }
+                else if(ql[1]<=0 )
+                {
+                    pen="Out of stock ";
                 }
                 else{
                     pen="Stock available";
                 }
                 //eraser
-                if(ql[2]<=(0.25*qo[2]))
+                if(ql[2]<=(0.25*qo[2]) && ql[2]!=0)
                 {
                     eraser="Stock low ";
                     ar.add("eraser");
+                }
+                else if(ql[2]<=0 )
+                {
+                    eraser="Out of stock ";
                 }
                 else{
                     eraser="Stock available";
                 }
                 //notebook
-                if(ql[3]<=(0.25*qo[3]))
+                if(ql[3]<=(0.25*qo[3]) && ql[3]!=0)
                 {
                     notebook="Stock low ";
                     ar.add("notebook");
+                }
+                else if(ql[3]<=0 )
+                {
+                    notebook="Out of stock ";
                 }
                 else{
                     notebook="Stock available";
                 }
                 //geometry box
-                if(ql[4]<=(0.25*qo[4]))
+                if(ql[4]<=(0.25*qo[4]) && ql[4]!=0)
                 {
                     geo_box="Stock low ";
                     ar.add("Geometry Box");
+                }
+                else if(ql[4]<=0 )
+                {
+                    geo_box="Out of stock ";
                 }
                 else{
                     geo_box="Stock available";
@@ -539,20 +569,16 @@ class Page_2 extends Component implements ActionListener {
                 ls.setSize(310, 150);
                 ls.setLocation(105, 312);
                 c.add(ls);
+                bg3.add(ls);
+
                 txt3 = new JTextField();
                 txt3.setFont(new Font("Arial", Font.PLAIN, 16));
                 txt3.setSize(300, 23);
-                txt3.setLocation(365, 377); //322
-                txt3.setText(ar.toString());
+                txt3.setLocation(365, 377);
                 txt3.setEditable(false);
                 c.add(txt3);
+                bg3.add(txt3);
 
-                prs = connection.prepareStatement(" select max(Quantity_sold),Product_no from stock_sold;");
-                ResultSet  rs1 = prs.executeQuery();
-                if(rs1.next()) {
-                    System.out.println(rs1.getString("Product_no"));
-                    txt1.setText(rs1.getString("Product_no"));
-                }
 
                 //Table Code begins
                 String column[] = {"Product Name", "Quantity Left ", "Profit Earned ", "Stock Availability"};
@@ -576,7 +602,8 @@ class Page_2 extends Component implements ActionListener {
 
                 JScrollPane sp2 = new JScrollPane(jt);
                 fr.add(sp2);
-                sp2.setBounds(90, 190, 680, 115);
+                bg3.add(sp2);
+                sp2.setBounds(90, 140, 680, 115);
                 //sp.setBounds(90,130,680,230);
                 fr.setVisible(true);
                 fr.setSize(890, 680);
@@ -600,29 +627,63 @@ class Page_2 extends Component implements ActionListener {
             {
                 new Page_2();
             }
+            if(e.getSource()==show)
+            {
+                txt2.setText("" +sum);
+                txt3.setText(ar.toString());
+
+                try{
+                    Class.forName("com.mysql.cj.jdbc.Driver"); //driver class
+                    Connection connection = DriverManager.getConnection(url, username, password);
+                    Statement statement = connection.createStatement();
+
+                    //most sold product
+
+                    PreparedStatement  prs = connection.prepareStatement(" select max(Quantity_sold),Product_type from stock_sold;");
+                    ResultSet  rs1 = prs.executeQuery();
+                    if(rs1.next()) {
+                        System.out.println(rs1.getString("Product_type"));
+                        txt1.setText(rs1.getString("Product_type"));
+                    }
+                }
+                catch (Exception e10)
+                {
+                    System.out.println(e10);
+                }
+            }
         }
     }
 
-    static class Page_1 extends Component implements ActionListener{
+    static class Page_1 extends Component implements ActionListener {
 
-        JFrame frm ;
-        JButton b1,b2,b3,b4,b5,print;
+        JFrame frm;
+        JButton b1, b2, b3, b4, b5, print;
         JTextArea bill;
-        JLabel ttl,line,line1,line2,line3,bi,date2;
-        JComboBox box1,d2,mo,y2;
+        JLabel ttl, line, line1, line2, line3, bi, date2,bg1;
+        JComboBox box1, d2, mo, y2;
         Container c;
 
         JMenu m1, m2;
         JMenuItem g1, g2, g3, a1, a2;
 
-        public float a,b,v,d,f;
+        public float a, b, v, d, f;
 
-        private String dates[]= { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" };
-        private String months[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
+        private String dates[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"};
+        private String months[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
         private String years[] = {"2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"};
 
-        Page_1()
-        {
+        String click,fff, he1, he2, he3, he4, fin, ln1, ln2;
+
+        String url = "jdbc:mysql://localhost:3306/mini_project";
+        String username = "root";
+        String password = "Manavdoshi31";
+
+        Connection connection1;
+        Statement statement1,st2;
+        ResultSet resultSet1;
+        PreparedStatement pst;
+
+        Page_1() {
             frm = new JFrame("MAIN PAGE");
             frm.setFont(new Font("Cambria", Font.PLAIN, 15));
             frm.setResizable(false);
@@ -634,7 +695,10 @@ class Page_2 extends Component implements ActionListener {
 
             c = frm.getContentPane();
             c.setLayout(null);
-            c.setBackground(Color.lightGray);
+
+            bg1 = new JLabel(new ImageIcon("Images/img3.jpg"));
+            bg1.setBounds(0,0,890,680);
+            c.add(bg1);
 
             JMenuBar mmm = new JMenuBar();
             m1 = new JMenu("Pages");
@@ -646,7 +710,7 @@ class Page_2 extends Component implements ActionListener {
             g2 = new JMenuItem("Inventory");
             g2.addActionListener(this);
 
-            g3 = new JMenuItem("Refresh Page");
+            g3 = new JMenuItem("Reset Page");
             g3.addActionListener(this);
 
             m1.add(g1);
@@ -663,109 +727,122 @@ class Page_2 extends Component implements ActionListener {
 
             line = new JLabel("--------------------------------------------------------------------------------------");
             line.setFont(new Font("Verdana", Font.PLAIN, 30));
-            line.setSize(2200,10);
-            line.setLocation(0,50);
+            line.setSize(2200, 10);
+            line.setLocation(0, 50);
             c.add(line);
+            bg1.add(line);
 
             line1 = new JLabel("--------------------------------------------------------------------------------------");
             line1.setFont(new Font("Verdana", Font.PLAIN, 30));
-            line1.setSize(2200,10);
-            line1.setLocation(0,65);
+            line1.setSize(2200, 10);
+            line1.setLocation(0, 65);
             c.add(line1);
+            bg1.add(line1);
 
             line2 = new JLabel("--------------------------------------------------------------------------------------");
             line2.setFont(new Font("Verdana", Font.PLAIN, 30));
-            line2.setSize(2200,10);
-            line2.setLocation(0,120);
+            line2.setSize(2200, 10);
+            line2.setLocation(0, 120);
             c.add(line2);
+            bg1.add(line2);
 
             line3 = new JLabel("--------------------------------------------------------------------------------------");
             line3.setFont(new Font("Verdana", Font.PLAIN, 30));
-            line3.setSize(2200,10);
-            line3.setLocation(0,135);
+            line3.setSize(2200, 10);
+            line3.setLocation(0, 135);
             c.add(line3);
+            bg1.add(line3);
 
-            ttl  = new JLabel("TSEC Stationary");
-            ttl.setFont(new Font("Cambria",Font.PLAIN,30));
-            ttl.setSize(350,50);
-            ttl.setLocation(285,75);
+            ttl = new JLabel("TSEC Stationary");
+            ttl.setFont(new Font("Cambria", Font.PLAIN, 30));
+            ttl.setSize(350, 50);
+            ttl.setLocation(285, 75);
             c.add(ttl);
+            bg1.add(ttl);
 
             b1 = new JButton("Eraser");
-            b1.setFont(new Font("Cambria",Font.PLAIN,16));
-            b1.setSize(120,35);
-            b1.setLocation(55,265);
+            b1.setFont(new Font("Cambria", Font.PLAIN, 16));
+            b1.setSize(120, 35);
+            b1.setLocation(55, 265);
             b1.addActionListener(this);
             c.add(b1);
+            bg1.add(b1);
 
             b2 = new JButton("Geometry Box");
-            b2.setFont(new Font("Cambria",Font.PLAIN,16));
-            b2.setSize(140,35);
-            b2.setLocation(228,265);
+            b2.setFont(new Font("Cambria", Font.PLAIN, 16));
+            b2.setSize(140, 35);
+            b2.setLocation(228, 265);
             b2.addActionListener(this);
             c.add(b2);
+            bg1.add(b2);
 
             b3 = new JButton("Notebook");
-            b3.setFont(new Font("Cambria",Font.PLAIN,16));
-            b3.setSize(120,35);
-            b3.setLocation(55,325);
+            b3.setFont(new Font("Cambria", Font.PLAIN, 16));
+            b3.setSize(120, 35);
+            b3.setLocation(55, 325);
             b3.addActionListener(this);
             c.add(b3);
+            bg1.add(b3);
 
             b4 = new JButton("Pen");
-            b4.setFont(new Font("Cambria",Font.PLAIN,16));
-            b4.setSize(140,35);
-            b4.setLocation(228,325);
+            b4.setFont(new Font("Cambria", Font.PLAIN, 16));
+            b4.setSize(140, 35);
+            b4.setLocation(228, 325);
             b4.addActionListener(this);
             c.add(b4);
+            bg1.add(b4);
 
             b5 = new JButton("Pencil");
-            b5.setFont(new Font("Cambria",Font.PLAIN,16));
-            b5.setSize(135,35);
-            b5.setLocation(125,387);
+            b5.setFont(new Font("Cambria", Font.PLAIN, 16));
+            b5.setSize(135, 35);
+            b5.setLocation(125, 387);
             b5.addActionListener(this);
             c.add(b5);
-
+            bg1.add(b5);
 
             date2 = new JLabel("Date : ");
-            date2.setFont(new Font("Cambria",Font.PLAIN,19));
-            date2.setSize(97,20);
-            date2.setLocation(55,465);
+            date2.setFont(new Font("Cambria", Font.PLAIN, 19));
+            date2.setSize(97, 20);
+            date2.setLocation(55, 465);
             c.add(date2);
+            bg1.add(date2);
 
             d2 = new JComboBox(dates);
-            d2.setFont(new Font("Arial",Font.PLAIN, 16));
+            d2.setFont(new Font("Arial", Font.PLAIN, 16));
             d2.setSize(50, 24);
             d2.setLocation(120, 465);
             c.add(d2);
+            bg1.add(d2);
 
             mo = new JComboBox(months);
-            mo.setFont(new Font("Arial",Font.PLAIN, 16));
+            mo.setFont(new Font("Arial", Font.PLAIN, 16));
             mo.setSize(80, 24);
             mo.setLocation(180, 465);
             c.add(mo);
+            bg1.add(mo);
 
             y2 = new JComboBox(years);
-            y2.setFont(new Font("Arial",Font.PLAIN, 16));
+            y2.setFont(new Font("Arial", Font.PLAIN, 16));
             y2.setSize(80, 24);
             y2.setLocation(270, 465);
             c.add(y2);
+            bg1.add(y2);
 
             bi = new JLabel("Customer Bill");
-            bi.setFont(new Font("Cambria",Font.BOLD,20));
-            bi.setSize(180,30);
-            bi.setLocation(563,190);
+            bi.setFont(new Font("Cambria", Font.BOLD, 20));
+            bi.setSize(180, 30);
+            bi.setLocation(563, 190);
             c.add(bi);
+            bg1.add(bi);
 
             bill = new JTextArea();
-            bill.setFont(new Font("Cambria",Font.BOLD,17));
-            bill.setSize(370,350);
-            bill.setLocation(453,225);
+            bill.setFont(new Font("Cambria", Font.BOLD, 17));
+            bill.setSize(370, 350);
+            bill.setLocation(453, 225);
             bill.setLineWrap(true);
             bill.setEditable(false);
             c.add(bill);
-
-            String he1,he2,he3,he4,fin,ln1,ln2;
+            bg1.add(bill);
 
             he1 = "Pr Name ";
             he2 = "Qt ";
@@ -777,11 +854,12 @@ class Page_2 extends Component implements ActionListener {
             bill.append(fin);
 
             print = new JButton("Print Bill");
-            print.setFont(new Font("Cambria",Font.PLAIN,19));
-            print.setSize(200,35);
-            print.setLocation(87,525);
+            print.setFont(new Font("Cambria", Font.PLAIN, 19));
+            print.setSize(200, 35);
+            print.setLocation(87, 525);
             print.addActionListener(this);
             c.add(print);
+            bg1.add(print);
 
             frm.setVisible(true);
             frm.setSize(890, 680);
@@ -790,79 +868,132 @@ class Page_2 extends Component implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
 
-            String  info;
-            if(e.getSource()==g1)
-            {
+            String info;
+            if (e.getSource() == g1) {
                 new Page_2();
             }
-            if(e.getSource()==g2)
-            {
+            if (e.getSource() == g2) {
                 new Page_3();
             }
 
-            if(e.getSource()==b1)
-            {
-                String name = JOptionPane.showInputDialog(frm, "Enter the Quantity of Eraser");
-                System.out.println();
-                a = Float.parseFloat(name) * (float) 10.0;
-                bill.append("\n Eraser                    "+name + "           10.0" + "                 "+ a);
-                String x1 = name;
-            }
-            if(e.getSource()==b2)
-            {
-                String name = JOptionPane.showInputDialog(frm, "Enter the Quantity of Geometry Box");
-                b = Float.parseFloat(name) * (float) 100.0;
-                bill.append("\n Geometry Box     "+name+ "           100.0"+"               "+b);
-                String x2 = name;
-            }
+            String dd = (String) d2.getSelectedItem();
+            String mm = (String) mo.getSelectedItem();
+            String yy = (String) y2.getSelectedItem();
+            fff = yy + "-" + mm + "-" + dd;
 
-            if(e.getSource()==b3)
-            {
-                String name = JOptionPane.showInputDialog(frm, "Enter the Quantity of Notebook");
-                v = Float.parseFloat(name) * (float) 65.0;
-                bill.append("\n Notebook              "+name+"           65.0"+"                 "+v);
-                String x3 = name;
-            }
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
 
-            if(e.getSource()==b4)
-            {
-                String name = JOptionPane.showInputDialog(frm, "Enter the Quantity of Pen");
-                d = Float.parseFloat(name) * (float) 20.0;
-                bill.append("\n Pen                         "+name+"            20.0"+"                "+d);
-                String x4 = name;
-            }
-
-            if(e.getSource()==b5)
-            {
-                String name = JOptionPane.showInputDialog(frm, "Enter the Quantity of Pencil");
-                f = Float.parseFloat(name) * (float) 15.0;
-                bill.append("\n Pencil                    "+name+"             15.0"+"                 "+f);
-                String x5 = name;
-            }
-
-            Connection connection1;
-            Statement statement1;
-            ResultSet resultSet1;
-            PreparedStatement pst;
-
-            String url = "jdbc:mysql://localhost:3306/mini_project";
-            String username = "root";
-            String password = "Manavdoshi31";
-            
-            if(e.getSource()==print)
-            {
-                float sum = this.b+this.a+this.f+this.d+this.v;
-                System.out.println(sum);
-                bill.append("\n\n\n-----------------------------------------------------------------                         TOTAL AMOUNT = "+sum);
-                
-                try {
-                    Class.forName("com.mysql.cj.jdbc.Driver"); //driver class
-                    
-                    
-                } catch (ClassNotFoundException ex) {
-                    ex.printStackTrace();
+                if (e.getSource() == b1) {
+                    click = "P0003";
+                } else if (e.getSource() == b2) {
+                    click = "P0005";
+                } else if (e.getSource() == b3) {
+                    click = "P0004";
+                } else if (e.getSource() == b4) {
+                    click = "P0002";
+                } else if (e.getSource() == b5) {
+                    click = "P0001";
                 }
-              
+
+                connection1 = DriverManager.getConnection(url, username, password);
+                statement1 = connection1.createStatement();
+
+                pst = connection1.prepareStatement("select Quantity_sold from stock_sold  WHERE Product_no = '" + click + "'");
+                resultSet1 = pst.executeQuery();
+
+                if (resultSet1.next()) {
+                    if (e.getSource() == b1) {
+                        String name = JOptionPane.showInputDialog(frm, "Enter the Quantity of Eraser");
+
+                        String db_qt = resultSet1.getString("Quantity_sold");
+                        int qt_left = Integer.parseInt(db_qt) + Integer.parseInt(name);
+                        System.out.println(qt_left);
+
+
+                        a = Float.parseFloat(name) * (float) 10.0;
+                        bill.append("\n Eraser                    " + name + "           10.0" + "                 " + a);
+
+                        statement1.execute("UPDATE Stock_sold SET Quantity_sold = ('" + qt_left + "') , Date_of_sale = '"+fff+"' WHERE Product_no = '"+click+"'");
+                    }
+                }
+                if (e.getSource() == b2) {
+                    String name = JOptionPane.showInputDialog(frm, "Enter the Quantity of Geometry Box");
+
+                    String db_qt = resultSet1.getString("Quantity_sold");
+                    int qt_left = Integer.parseInt(db_qt) + Integer.parseInt(name);
+                    System.out.println(qt_left);
+
+                    b = Float.parseFloat(name) * (float) 100.0;
+                    bill.append("\n Geometry Box     " + name + "           100.0" + "               " + b);
+
+                    statement1.execute("UPDATE Stock_sold SET Quantity_sold = ('" + qt_left + "'), Date_of_sale = '"+fff+"' WHERE Product_no = '"+click+"'");
+                }
+
+                if (e.getSource() == b3) {
+                    String name = JOptionPane.showInputDialog(frm, "Enter the Quantity of Notebook");
+
+                    String db_qt = resultSet1.getString("Quantity_sold");
+                    int qt_left = Integer.parseInt(db_qt) + Integer.parseInt(name);
+                    System.out.println(qt_left);
+
+                    v = Float.parseFloat(name) * (float) 65.0;
+                    bill.append("\n Notebook              " + name + "           65.0" + "                 " + v);
+
+                    statement1.execute("UPDATE Stock_sold SET Quantity_sold = ('" + qt_left + "'), Date_of_sale = '"+fff+"' WHERE Product_no = '"+click+"'");
+                }
+
+                if (e.getSource() == b4) {
+                    String name = JOptionPane.showInputDialog(frm, "Enter the Quantity of Pen");
+
+                    String db_qt = resultSet1.getString("Quantity_sold");
+                    int qt_left = Integer.parseInt(db_qt) + Integer.parseInt(name);
+                    System.out.println(qt_left);
+
+                    d = Float.parseFloat(name) * (float) 20.0;
+                    bill.append("\n Pen                         " + name + "            20.0" + "                " + d);
+
+                    statement1.execute("UPDATE Stock_sold SET Quantity_sold = ('" + qt_left + "'), Date_of_sale = '"+fff+"' WHERE Product_no = '"+click+"'");
+                }
+
+                if (e.getSource() == b5) {
+                    String name = JOptionPane.showInputDialog(frm, "Enter the Quantity of Pencil");
+
+                    String db_qt = resultSet1.getString("Quantity_sold");
+                    int qt_left = Integer.parseInt(db_qt) + Integer.parseInt(name);
+                    System.out.println(qt_left);
+
+                    f = Float.parseFloat(name) * (float) 15.0;
+                    bill.append("\n Pencil                    " + name + "             15.0" + "                 " + f);
+
+                    statement1.execute("UPDATE Stock_sold SET Quantity_sold = ('" + qt_left + "'), Date_of_sale = '"+fff+"' WHERE Product_no = '"+click+"'");
+                }
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            } catch (ClassNotFoundException exception) {
+                exception.printStackTrace();
+            }
+
+            if (e.getSource() == print) {
+                float sum = this.b + this.a + this.f + this.d + this.v;
+                System.out.println(sum);
+                bill.append("\n\n\n-----------------------------------------------------------------                         TOTAL AMOUNT = " + sum);
+            }
+            if(e.getSource()==g3)
+            {
+                bill.setText(" ");
+                he1 = "Pr Name ";
+                he2 = "Qt ";
+                he3 = "Price";
+                he4 = "TOTAL\n";
+                ln1 = "_________________________________________________________";
+                ln2 = "_________________________________________________________";
+                fin = ln2 + "   " + he1 + "       |    " + he2 + "       |    " + he3 + "     |    " + he4 + ln1;
+                bill.append(fin);
+                d2.setSelectedIndex(0);
+                mo.setSelectedIndex(0);
+                y2.setSelectedIndex(0);
+
             }
         }
     }
@@ -870,24 +1001,3 @@ class Page_2 extends Component implements ActionListener {
             new Page_1();
     }
 }
-
-    /* THINGS THAT CAN BE ADDED
-
-    Page_1 : 1. tabular display in JTextArea
-                  ie : aaise aache se diaplay kar paye in 3 coloums of NAME,PRICE,QUANTITY,TOTAL.
-             2. printing the total amount at the end
-
-    Page_2 : 1. while connecting to database try linking the product id & product name
-                  ie : agar produc id dala toh automatic product name aa jana chaiye 0R produt name choose karene pe
-                  product id fill ho jana chaye textField mai.
-
-    Page_3 : 1. Do colouring of the table for that stock alert wala thing
-
-     */
-
-/*
- PROBLEMS TO SOLVE
-
- 1. Database link hua hai ki nai ..not sure
- 2.
- */
